@@ -23,10 +23,11 @@ class Installer {
     const newPath = path.join(oldPath.substring(0, index), this.EXEC_FILE);
     fs.renameSync(oldPath, newPath);
     this.logger.info(`Renamed to ${newPath}.`);
+    fs.chmodSync(newPath, '777');
+    this.logger.info(`Access permissions are changed to 777.`);
     
-    const cachedPath = await tc.cacheDir('.', this.EXEC_FILE, this.version);
-    core.addPath(cachedPath);
-    this.logger.info(`Mint ${this.version} installed successfully.`);
+    // const cachedPath = await tc.cacheDir('.', this.EXEC_FILE, this.version);
+    core.addPath(newPath);
   }
 
   getUrl() {
