@@ -28,6 +28,7 @@ class Installer {
     this.logger.info(`Access permissions changed to 777.`);
     
     const cachedPath = await tc.cacheDir(folderPath, this.EXEC_FILE, this.version);
+    this.logger.info(`Cached dir is ${cachedPath}`);
     core.addPath(cachedPath);
   }
 
