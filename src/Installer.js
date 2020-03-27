@@ -21,7 +21,7 @@ class Installer {
     this.logger.info(`Downloaded to ${oldPath}.`);
     const index = oldPath.lastIndexOf(path.sep);    
     const folderPath = oldPath.substring(0, index);
-    const newPath = path.join(, this.EXEC_FILE);
+    const newPath = path.join(folderPath, this.EXEC_FILE);
     fs.renameSync(oldPath, newPath);
     this.logger.info(`Renamed to ${newPath}.`);
     fs.chmodSync(newPath, '777');
