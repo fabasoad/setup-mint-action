@@ -1,0 +1,13 @@
+---
+name: 'Setup Mint'
+description: 'This action sets up a Mint programming language.'
+# branding:
+#   icon: alert-octagon
+#   color: red
+inputs:
+  version:
+    description: 'Mint version.'
+    required: true
+runs:
+  using: 'node12'
+  main: 'src/index.js'

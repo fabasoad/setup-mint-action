@@ -1,0 +1,16 @@
+name: Setup Mint
+
+on: push
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: fRun abasoad/setup-mint-action@v1.0.0
+        uses: ./
+        with:
+          version: '0.8.0'
+      - name: Run script
+        run: mint init test-project
