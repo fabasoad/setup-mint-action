@@ -13,4 +13,4 @@ jobs:
         with:
           version: '0.8.0'
       - name: Run script
-        run: sudo mint init test-project
+        run: mint init test-project
