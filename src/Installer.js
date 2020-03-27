@@ -20,14 +20,15 @@ class Installer {
     const oldPath = await tc.downloadTool(this.getUrl());
     this.logger.info(`Downloaded to ${oldPath}.`);
     const index = oldPath.lastIndexOf(path.sep);    
-    const newPath = path.join(oldPath.substring(0, index), this.EXEC_FILE);
+    const folderPath = oldPath.substring(0, index);
+    const newPath = path.join(, this.EXEC_FILE);
     fs.renameSync(oldPath, newPath);
     this.logger.info(`Renamed to ${newPath}.`);
     fs.chmodSync(newPath, '777');
-    this.logger.info(`Access permissions are changed to 777.`);
+    this.logger.info(`Access permissions changed to 777.`);
     
-    // const cachedPath = await tc.cacheDir('.', this.EXEC_FILE, this.version);
-    core.addPath(newPath);
+    const cachedPath = await tc.cacheDir(folderPath, this.EXEC_FILE, this.version);
+    core.addPath(cachedPath);
   }
 
   getUrl() {
