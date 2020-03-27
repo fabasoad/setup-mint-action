@@ -17,6 +17,7 @@ class Installer {
   async install() {
     this.logger.info(`Downloading Mint ${this.version}...`);
     const downloadedFile = await tc.downloadTool(this.getUrl());
+    this.logger.info(`Mint ${this.version} is downloaded to ${downloadedFile}.`);
     this.logger.info(`Installing Mint ${this.version}...`);
     fs.renameSync(downloadedFile, this.EXEC_FILE);
     
