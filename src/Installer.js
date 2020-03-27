@@ -19,7 +19,8 @@ class Installer {
     this.logger.info(`Downloading Mint ${this.version}...`);
     const oldPath = await tc.downloadTool(this.getUrl());
     this.logger.info(`Downloaded to ${oldPath}.`);
-    const newPath = path.join(path.basename(path.dirname(oldPath)), this.EXEC_FILE);
+    const index = oldPath.lastIndexOf(path.sep);    
+    const newPath = path.join(oldPath.substring(0, index), this.EXEC_FILE);
     fs.renameSync(oldPath, newPath);
     this.logger.info(`Renamed to ${newPath}.`);
     
