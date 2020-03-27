@@ -1,9 +1,9 @@
 ---
 name: 'Setup Mint'
 description: 'This action sets up a Mint programming language.'
-# branding:
-#   icon: alert-octagon
-#   color: red
+branding:
+  icon: feather
+  color: green
 inputs:
   version:
     description: 'Mint version.'
