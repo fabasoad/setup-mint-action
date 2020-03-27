@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const { exec } = require('@actions/exec');
 const tc = require('@actions/tool-cache');
 const fs = require('fs');
 const os = require('os');
@@ -31,6 +32,7 @@ class Installer {
     this.logger.info(`Cached dir is ${cachedPath}`);
     core.addPath(cachedPath);
     fs.readdirSync(cachedPath).forEach(f => this.logger.info(`File ${f}`));
+    await exec('mint', ['init', 'proj1']);
   }
 
   getUrl() {
