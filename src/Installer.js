@@ -30,6 +30,7 @@ class Installer {
     const cachedPath = await tc.cacheDir(folderPath, this.EXEC_FILE, this.version);
     this.logger.info(`Cached dir is ${cachedPath}`);
     core.addPath(cachedPath);
+    fs.readdirSync(cachedPath).forEach(f => this.logger.info(`File ${f}`));
   }
 
   getUrl() {
