@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2.1.0
         with:
           ref: ${{ github.ref }}
-      - uses: join(['fabasoad/setup-mint-action','${{ github.ref }}'], '@')
+      - uses: join(['fabasoad/setup-mint-action',${{ github.ref }}], '@')
         with:
           version: ${{ matrix.version }}
       - name: Run script
