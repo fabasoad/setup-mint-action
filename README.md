@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: fabasoad/setup-mint-action@v1.0.0
         with:
-          version: '0.8.0'
+          version: 0.8.0
       - name: Run script
         run: mint init test-project
 ```
