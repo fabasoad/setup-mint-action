@@ -4,7 +4,9 @@
 This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
 ## Inputs
-1. `version` - _[Required]_ Mint version that can be found [here](https://github.com/mint-lang/mint/releases).
+| Name    | Required | Description                                                                       | Default | Possible values |
+|---------|----------|-----------------------------------------------------------------------------------|---------|-----------------|
+| version | Yes      | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) |         | &lt;String&gt;  |
 
 ## Example usage
 
