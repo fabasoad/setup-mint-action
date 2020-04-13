@@ -1,6 +1,9 @@
 name: CI (latest)
 
-on: push
+on:
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   unit_tests:
@@ -10,10 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
         with:
-          ref: v1.0.0
+          ref: ${{ github.ref }}
       - uses: Adzz/jest_test_action@v1.0.0
-        # env:
-        #   SRC_PATH: ${{ github.workspace }}
         with:
           package-manager: npm
           command: test
@@ -28,9 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
         with:
-          ref: v1.0.0
-      - uses: fabasoad/setup-mint-action@v1.0.0
+          ref: ${{ github.ref }}
+      - uses: fabasoad/setup-mint-action@${{ github.ref }}
         with:
           version: ${{ matrix.version }}
       - name: Run script
-        run: mint init project-${{ matrix.os }}
+        run: mint init ${{ matrix.os }}-${{ matrix.version }}

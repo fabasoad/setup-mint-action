@@ -16,8 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
       - uses: Adzz/jest_test_action@v1.0.0
-        # env:
-        #   SRC_PATH: ${{ github.workspace }}
         with:
           package-manager: npm
           command: test
@@ -35,4 +33,4 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - name: Run script
-        run: mint init project-${{ matrix.os }}
+        run: mint init ${{ matrix.os }}-${{ matrix.version }}
