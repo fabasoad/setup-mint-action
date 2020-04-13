@@ -10,7 +10,7 @@ const sinon = require('sinon');
 
 // const srcPath = process.env.SRC_PATH || path.join(process.cwd(), 'src/installer');
 // const { Installer, UnsupportedOSError } = require(srcPath);
-const Installer = require(__dirname + '/../src/installer');
+const Installer = require(__dirname + '/../src/Installer');
 const UnsupportedOSError = require(__dirname + '/../src/unsupported-os-error');
 
 const fixture = [{
