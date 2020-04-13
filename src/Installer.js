@@ -4,15 +4,21 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const Logger = require('./Logger');
+const Logger = require('./logger');
+
+class UnsupportedOSError extends Error {
+  constructor(message) {
+    super(message);
+  }
+}
 
 class Installer {
-
-  EXEC_FILE = 'mint';
 
   constructor(version) {
     this.version = version;
     this.logger = new Logger('Installer');
+
+    this.EXEC_FILE = 'mint';
   }
 
   async install() {
@@ -42,10 +48,10 @@ class Installer {
         suffix = 'linux';
         break;
       default:
-        throw new Error('Windows is not supported.');
+        throw new UnsupportedOSError('Windows is not supported.');
     }
     return `https://github.com/mint-lang/mint/releases/download/${this.version}/mint-${this.version}-${suffix}`;
   }
 }
 
-module.exports = Installer;
+module.exports = { Installer, UnsupportedOSError };

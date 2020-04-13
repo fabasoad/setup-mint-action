@@ -2,7 +2,11 @@
   "name": "setup-mint-action",
   "version": "1.0.0",
   "description": "This action sets up a Mint programming language.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build -m src/index.js",
+    "test": "mocha __tests__"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fabasoad/setup-mint-action.git"
@@ -24,5 +28,12 @@
     "@actions/core": "^1.2.3",
     "@actions/tool-cache": "^1.3.3",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.1",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
+    "mocha-param": "^2.0.1",
+    "sinon": "^9.0.2"
   }
 }
