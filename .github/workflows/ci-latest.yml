@@ -12,6 +12,8 @@ jobs:
         with:
           ref: v1.0.0
       - uses: Adzz/jest_test_action@v1.0.0
+        env:
+          SRC_PATH: ${{ github.workspace }}
         with:
           package-manager: npm
           command: test
