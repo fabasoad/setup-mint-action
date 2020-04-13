@@ -10,7 +10,7 @@ const sinon = require('sinon');
 
 // const srcPath = process.env.SRC_PATH || path.join(process.cwd(), 'src/installer');
 // const { Installer, UnsupportedOSError } = require(srcPath);
-const { Installer, UnsupportedOSError } = require('../src/installer.js');
+const { Installer, UnsupportedOSError } = require(__dirname + '/../src/installer');
 
 const fixture = [{
   type: 'Darwin',
