@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
         with:
-          ref: ${{ github.ref }}
+          ref: v1.0.0
       - uses: Adzz/jest_test_action@v1.0.0
         with:
           package-manager: npm
@@ -26,8 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
         with:
-          ref: ${{ github.ref }}
-      - uses: fabasoad/setup-mint-action@${{ github.ref }}
+          ref: v1.0.0
+      - uses: fabasoad/setup-mint-action@v1.0.0
         with:
           version: ${{ matrix.version }}
       - name: Run script

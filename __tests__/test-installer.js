@@ -8,7 +8,7 @@ const { assert } = require('chai');
 const itParam = require('mocha-param');
 const sinon = require('sinon');
 
-const { Installer, UnsupportedOSError } = require('../src/installer');
+const { Installer, UnsupportedOSError } = require(path.join(process.cwd(), 'src/installer'));
 
 const fixture = [{
   type: 'Darwin',
