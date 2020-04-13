@@ -5,12 +5,7 @@ const os = require('os');
 const path = require('path');
 
 const Logger = require('./logger');
-
-class UnsupportedOSError extends Error {
-  constructor(message) {
-    super(message);
-  }
-}
+const UnsupportedOSError = require('./unsupported-os-error');
 
 class Installer {
 
@@ -54,4 +49,4 @@ class Installer {
   }
 }
 
-module.exports = { Installer, UnsupportedOSError };
+module.exports = Installer;
