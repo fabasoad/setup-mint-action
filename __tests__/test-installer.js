@@ -8,8 +8,9 @@ const { assert } = require('chai');
 const itParam = require('mocha-param');
 const sinon = require('sinon');
 
-const srcPath = process.env.SRC_PATH || path.join(process.cwd(), 'src/installer');
-const { Installer, UnsupportedOSError } = require(srcPath);
+// const srcPath = process.env.SRC_PATH || path.join(process.cwd(), 'src/installer');
+// const { Installer, UnsupportedOSError } = require(srcPath);
+const { Installer, UnsupportedOSError } = require('../src/installer');
 
 const fixture = [{
   type: 'Darwin',
@@ -63,7 +64,7 @@ describe('Test Installer class', () => {
     assert.Throw();
   });
 
-  itParam('should install correctly for ${value.type}', fixture, async (supportedOS) => {
+  itParam('should install correctly for ${value.type} OS', fixture, async (supportedOS) => {
     const folderPath = 'x2no1z63' + path.sep;
     const oldPath = folderPath + 'gke7d78i';
     const newPath = folderPath + 'mint';
