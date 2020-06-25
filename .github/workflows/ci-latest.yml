@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.1.0
+      - uses: actions/checkout@v2.3.1
         with:
           ref: ${{ github.ref }}
       - uses: Adzz/jest_test_action@v1.0.0
@@ -27,7 +27,7 @@ jobs:
         version: ['0.7.1','0.8.0','0.9.0']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: fabasoad/setup-mint-action@v1.0.1
+      - uses: fabasoad/setup-mint-action@v1.0.3
         with:
           version: ${{ matrix.version }}
       - name: Run script
