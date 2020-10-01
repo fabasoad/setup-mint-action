@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/fabasoad/setup-mint-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "@actions/tool-cache": "^1.6.0",
     "winston": "^3.3.3",
     "snyk": "^1.373.1"
