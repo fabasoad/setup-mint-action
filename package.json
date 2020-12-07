@@ -5,7 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "ncc build -m src/index.js",
-    "test": "mocha __tests__",
+    "lint": "eslint src",
+    "security:auth": "snyk auth",
+    "security:test": "snyk test",
+    "test": "nyc mocha __tests__",
     "snyk-protect": "snyk protect",
     "prepublish": "yarn run snyk-protect"
   },
@@ -34,10 +37,13 @@
   "devDependencies": {
     "@vercel/ncc": "0.25.1",
     "chai": "4.2.0",
+    "eslint": "7.15.0",
+    "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
     "husky": "4.3.5",
     "mocha": "8.2.1",
     "mocha-param": "2.0.1",
+    "nyc": "15.1.0",
     "sinon": "9.2.1",
     "snyk": "1.434.2"
   },
@@ -45,7 +51,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "git-branch-is -r \"^((?!main).)*$\" && yarn run build && git add dist/index.js",
-      "pre-push": "yarn test"
+      "pre-push": "yarn run lint && yarn test"
     }
   }
 }
