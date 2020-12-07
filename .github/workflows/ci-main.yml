@@ -57,7 +57,7 @@ jobs:
         version: ['0.7.1','0.8.0','0.9.0','0.10.0']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.3.3
+      - uses: actions/checkout@v2.3.4
       - uses: ./
         with:
           version: ${{ matrix.version }}
