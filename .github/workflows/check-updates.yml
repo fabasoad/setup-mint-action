@@ -1,0 +1,47 @@
+---
+name: Check updates
+
+on:
+  schedule:
+    - cron: '0 21 * * 0'
+
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+jobs:
+  check_versions:
+    name: Yarn
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Print outdated dependencies
+        run: yarn outdated || echo ''
+      - name: Update versions
+        run: yarn upgrade --latest
+      - name: Compile
+        run: |
+          rm yarn.lock
+          yarn install
+          yarn run build
+        shell: bash
+      - name: Check local changes
+        id: yarn-versions
+        run: |
+          changed_files=$(git status --porcelain --untracked-files=no | wc -l)
+          if [ $changed_files -eq 0 ]; then echo '::set-output name=outdated::false'; else echo '::set-output name=outdated::true'; fi
+        shell: bash
+      - name: Increase version
+        if: ${{ steps.yarn-versions.outputs.outdated }}
+        run: yarn version --patch --no-git-tag-version
+      - name: Create PR
+        if: ${{ steps.yarn-versions.outputs.outdated }}
+        uses: peter-evans/create-pull-request@v3.5.1
+        with:
+          branch: bump/${{ github.run_id }}
+          delete-branch: true
+          base: main
+          title: 'Bump dependencies'
+          body: 'Bump dependencies'
+          labels: dependencies
+          reviewers: fabasoad
