@@ -26,22 +26,31 @@ jobs:
           yarn run build
         shell: bash
       - name: Check local changes
-        id: yarn-versions
+        id: git-diff
         run: |
           changed_files=$(git status --porcelain --untracked-files=no | wc -l)
-          if [ $changed_files -eq 0 ]; then echo '::set-output name=outdated::false'; else echo '::set-output name=outdated::true'; fi
+          echo '::set-output name=count::'$changed_files
         shell: bash
       - name: Increase version
-        if: ${{ steps.yarn-versions.outputs.outdated }}
+        if: ${{ steps.git-diff.outputs.count > 0 }}
         run: yarn version --patch --no-git-tag-version
       - name: Create PR
-        if: ${{ steps.yarn-versions.outputs.outdated }}
+        if: ${{ steps.git-diff.outputs.count > 0 }}
         uses: peter-evans/create-pull-request@v3.5.1
         with:
-          branch: bump/${{ github.run_id }}
-          delete-branch: true
+          author: ${{ github.actor }} <${{ github.actor }}@gmail.com>
           base: main
-          title: 'Bump dependencies'
-          body: 'Bump dependencies'
+          body: |
+            ## Description
+            Bump dependencies
+            ## Workflow
+            - _Name:_ ${{ github.workflow }}
+            - _Run ID:_ ${{ github.run_id }}
+            - _Run Number:_ ${{ github.run_number }}
+          branch: bump/patch
+          branch-suffix: timestamp
+          commit-message: 'Bump dependencies by "${{ github.workflow }} #${{ github.run_number }}"'
+          delete-branch: true
           labels: dependencies
-          reviewers: fabasoad
+          reviewers: ${{ github.actor }}
+          title: 'Bump dependencies by "${{ github.workflow }} #${{ github.run_number }}"'

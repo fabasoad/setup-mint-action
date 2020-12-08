@@ -55,7 +55,7 @@ jobs:
         version: ['0.7.1', '0.8.0', '0.9.0', '0.10.0']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: fabasoad/setup-mint-action@v1.0.4
+      - uses: fabasoad/setup-mint-action@v1.0.5
         with:
           version: ${{ matrix.version }}
       - name: Run script
