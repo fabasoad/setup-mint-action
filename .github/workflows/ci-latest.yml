@@ -3,7 +3,7 @@ name: CI (latest)
 
 on:
   push:
-  tags:
+    tags:
       - 'v*.*.*'
 
 env:
