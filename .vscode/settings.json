@@ -1,0 +1,17 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "fixAll.eslint": true,
+    "source.organizeImports": true,
+    "typescript.suggestionActions.enabled": true
+  },
+  "cSpell.words": [
+    "consts",
+    "evincarofautumn",
+    "mstksg",
+    "paambaati",
+    "unzipper",
+    "vercel"
+  ],
+  "editor.rulers": [ 80 ]
+}
