@@ -1,6 +1,6 @@
 {
   "name": "setup-mint-action",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "This action sets up a Mint programming language.",
   "main": "dist/index.js",
   "scripts": {
@@ -40,12 +40,12 @@
     "eslint": "7.15.0",
     "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
-    "husky": "4.3.5",
+    "husky": "4.3.6",
     "mocha": "8.2.1",
     "mocha-param": "2.0.1",
     "nyc": "15.1.0",
-    "sinon": "9.2.1",
-    "snyk": "1.434.2"
+    "sinon": "9.2.2",
+    "snyk": "1.437.0"
   },
   "snyk": true,
   "husky": {
