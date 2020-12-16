@@ -1,4 +1,4 @@
-Closes #<Issue Number>
+Closes #<IssueNumber>
 
 ## Pull request checklist
 

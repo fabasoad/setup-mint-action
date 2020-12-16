@@ -19,7 +19,6 @@ const fixture = [{
 }];
 
 describe('Test Installer class', () => {
-
   let coreAddPathStub;
   let fsChmodSyncStub;
   let fsRenameSyncStub;
@@ -36,15 +35,16 @@ describe('Test Installer class', () => {
     tcDownloadToolStub = sinon.stub(tc, 'downloadTool');
   });
 
-  itParam('should build correct url for ${value.type} OS', fixture, (supportedOS) => {
-    osTypeStub.returns(supportedOS.type);
+  itParam('should build correct url for ${value.type} OS', fixture,
+    (supportedOS) => {
+      osTypeStub.returns(supportedOS.type);
 
-    const version = 'y50pgz2b';
-    const installer = new Installer(version);
+      const version = 'y50pgz2b';
+      const installer = new Installer(version);
 
-    const url = installer.getUrl();
-    assert.equal(`https://github.com/mint-lang/mint/releases/download/${version}/mint-${version}-${supportedOS.suffix}`, url);
-  });
+      const url = installer.getUrl();
+      assert.equal(`https://github.com/mint-lang/mint/releases/download/${version}/mint-${version}-${supportedOS.suffix}`, url);
+    });
 
   it('should not build url for Windows OS', () => {
     osTypeStub.returns('Windows_NT');
@@ -59,31 +59,33 @@ describe('Test Installer class', () => {
         return;
       }
     }
+    // eslint-disable-next-line new-cap
     assert.Throw();
   });
 
-  itParam('should install correctly for ${value.type} OS', fixture, async (supportedOS) => {
-    const folderPath = 'x2no1z63' + path.sep;
-    const oldPath = folderPath + 'gke7d78i';
-    const newPath = folderPath + 'mint';
-    const cachedPath = 'oze9ptz2';
-    const version = 'y50pgz2b';
-        
-    osTypeStub.returns(supportedOS.type);
-    tcDownloadToolStub.returns(oldPath);
-    tcCacheDirStub.returns(cachedPath);
-    
-    const installer = new Installer(version);
-    await installer.install();
+  itParam('should install correctly for ${value.type} OS', fixture,
+    async (supportedOS) => {
+      const folderPath = 'x2no1z63' + path.sep;
+      const oldPath = folderPath + 'gke7d78i';
+      const newPath = folderPath + 'mint';
+      const cachedPath = 'oze9ptz2';
+      const version = 'y50pgz2b';
 
-    tcDownloadToolStub.calledOnceWith(
-      `https://github.com/mint-lang/mint/releases/download/${version}/mint-${version}-${supportedOS.suffix}`
-    );
-    fsRenameSyncStub.calledOnceWith(oldPath, newPath);
-    fsChmodSyncStub.calledOnceWith(newPath, '777');
-    tcCacheDirStub.calledOnceWith(folderPath, 'mint', version);
-    coreAddPathStub.calledOnceWith(cachedPath);
-  });
+      osTypeStub.returns(supportedOS.type);
+      tcDownloadToolStub.returns(oldPath);
+      tcCacheDirStub.returns(cachedPath);
+
+      const installer = new Installer(version);
+      await installer.install();
+
+      tcDownloadToolStub.calledOnceWith(
+        `https://github.com/mint-lang/mint/releases/download/${version}/mint-${version}-${supportedOS.suffix}`
+      );
+      fsRenameSyncStub.calledOnceWith(oldPath, newPath);
+      fsChmodSyncStub.calledOnceWith(newPath, '777');
+      tcCacheDirStub.calledOnceWith(folderPath, 'mint', version);
+      coreAddPathStub.calledOnceWith(cachedPath);
+    });
 
   it('should not install for Windows OS', async () => {
     const folderPath = 'x2no1z63' + path.sep;
@@ -94,7 +96,7 @@ describe('Test Installer class', () => {
     osTypeStub.returns('Windows_NT');
     tcDownloadToolStub.returns(oldPath);
     tcCacheDirStub.returns(cachedPath);
-    
+
     const installer = new Installer(version);
     try {
       await installer.install();
@@ -108,6 +110,7 @@ describe('Test Installer class', () => {
         return;
       }
     }
+    // eslint-disable-next-line new-cap
     assert.Throw();
   });
 
