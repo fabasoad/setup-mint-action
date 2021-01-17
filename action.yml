@@ -8,7 +8,8 @@ branding:
 inputs:
   version:
     description: 'Mint version.'
-    required: true
+    required: false
+    default: 0.10.0
 runs:
   using: 'node12'
   main: 'dist/index.js'
