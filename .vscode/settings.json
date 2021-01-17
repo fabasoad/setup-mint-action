@@ -11,11 +11,13 @@
     "briandk",
     "consts",
     "evincarofautumn",
+    "ibiqlik",
     "markdownlint",
     "mstksg",
     "paambaati",
     "unzipper",
-    "vercel"
+    "vercel",
+    "yamllint"
   ],
   "editor.rulers": [ 80 ]
 }
