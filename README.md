@@ -6,9 +6,9 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
 ## Inputs
 
-| Name    | Required | Description                                                                       | Default  | Possible values        |
-|---------|----------|-----------------------------------------------------------------------------------|----------|------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.10.0` | `0.8.0`, `0.9.0`, etc. |
+| Name    | Required | Description                                                                       | Default  | Possible values         |
+|---------|----------|-----------------------------------------------------------------------------------|----------|-------------------------|
+| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.11.0` | `0.9.0`, `0.10.0`, etc. |
 
 ## Example usage
 

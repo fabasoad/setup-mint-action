@@ -1,6 +1,6 @@
 {
   "name": "setup-mint-action",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "This action sets up a Mint programming language.",
   "main": "dist/index.js",
   "scripts": {
