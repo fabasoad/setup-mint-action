@@ -13,7 +13,7 @@ env:
 
 jobs:
   functional_tests:
-    name: Run script
+    name: Run init
     timeout-minutes: 5
     strategy:
       matrix:
