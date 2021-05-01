@@ -6,7 +6,7 @@ on:
     branches:
       - 'main'
       - 'bugfix/**'
-      - 'bump/patch-*'
+      - 'dependabot/*'
       - 'feature/**'
 
 env:
@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest', 'macos-latest']
-        version: ['0.7.1', '0.8.0', '0.9.0', '0.10.0', '0.11.0']
+        version: ['0.7.1', '0.8.0', '0.9.0', '0.10.0', '0.11.0', '0.12.0']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.3.4
