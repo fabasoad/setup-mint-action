@@ -1,6 +1,6 @@
 {
   "name": "setup-mint-action",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "This action sets up a Mint programming language.",
   "main": "dist/index.js",
   "scripts": {
@@ -33,14 +33,14 @@
   },
   "homepage": "https://github.com/fabasoad/setup-mint-action#readme",
   "dependencies": {
-    "@actions/core": "1.2.6",
+    "@actions/core": "1.2.7",
     "@actions/tool-cache": "1.6.1",
     "winston": "3.3.3"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.28.1",
+    "@vercel/ncc": "0.28.4",
     "chai": "4.3.4",
-    "eslint": "7.23.0",
+    "eslint": "7.25.0",
     "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
     "husky": "6.0.0",
@@ -49,7 +49,7 @@
     "mocha-param": "2.0.1",
     "nyc": "15.1.0",
     "sinon": "10.0.0",
-    "snyk": "1.527.0"
+    "snyk": "1.574.0"
   },
   "snyk": true
 }
