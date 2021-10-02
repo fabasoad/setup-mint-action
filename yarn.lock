@@ -1966,10 +1966,10 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-snyk@1.696.0:
-  version "1.696.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.696.0.tgz#096998efd8be757a6093ac354ccc1628db2c4373"
-  integrity sha512-0ZTIc2RAfh6dD+KCegJe65AIzEpm6RBIvbPcnQXmGe/lf1GsmwxWO8GALvWnAmDPNHIBSdjq+a6ijF5VoxdKAA==
+snyk@1.728.0:
+  version "1.728.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.728.0.tgz#983c75c23dc390c5db5ed74a49304cc283a40abd"
+  integrity sha512-qzICYKNLk8gywBmbwUK72+ySbqE3JyjzLJc/yCwhNu3JMbomTtCFEtJBYnoE12A2Pp0f0DY3GBJsl8gH1NdR6Q==
 
 source-map@^0.5.0:
   version "0.5.7"
