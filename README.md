@@ -8,7 +8,7 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
 | Name    | Required | Description                                                                       | Default  | Possible values          |
 |---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.12.0` | `0.10.0`, `0.11.0`, etc. |
+| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.15.1` | `0.13.1`, `0.14.0`, etc. |
 
 ## Example usage
 
