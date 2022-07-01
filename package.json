@@ -8,7 +8,7 @@
     "lint:md": "markdownlint --config .markdownlint.yml '**/*.md'",
     "lint:es": "eslint src __tests__",
     "lint": "yarn run lint:md && yarn run lint:es",
-    "postinstall": "yarn husky install",
+    "postinstall": "pre-commit install --hook-type pre-commit && pre-commit install --hook-type pre-push",
     "test": "nyc mocha __tests__"
   },
   "repository": {
@@ -39,7 +39,6 @@
     "eslint": "8.18.0",
     "eslint-config-google": "0.14.0",
     "git-branch-is": "4.0.0",
-    "husky": "8.0.1",
     "markdownlint-cli": "0.31.1",
     "mocha": "10.0.0",
     "mocha-param": "2.0.1",
