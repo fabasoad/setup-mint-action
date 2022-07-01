@@ -31,7 +31,7 @@ repos:
       - id: detect-secrets
         stages: ["commit", "push"]
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.8.9
+    rev: v8.8.11
     hooks:
       - id: gitleaks
         stages: ["commit", "push"]
