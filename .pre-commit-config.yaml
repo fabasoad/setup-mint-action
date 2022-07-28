@@ -4,13 +4,6 @@ exclude: ^(.gitleaks\.toml|dist/.*\.js|coverage/.*)$
 repos:
   - repo: local
     hooks:
-      - id: pre-commit-autoupdate
-        name: pre-commit-autoupdate
-        entry: pre-commit autoupdate
-        language: system
-        pass_filenames: false
-        verbose: true
-        stages: ["push"]
       - id: build
         name: Build
         entry: yarn run build
@@ -26,7 +19,7 @@ repos:
         stages: ["push"]
   # Security
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.2.0
+    rev: v1.3.0
     hooks:
       - id: detect-secrets
         stages: ["commit", "push"]
@@ -51,7 +44,7 @@ repos:
         exclude: ^dist/.*\.js$
   # Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.32.0
+    rev: v0.32.1
     hooks:
       - id: markdownlint
   # Yaml
