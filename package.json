@@ -27,14 +27,14 @@
   },
   "homepage": "https://github.com/fabasoad/setup-mint-action#readme",
   "dependencies": {
-    "@actions/core": "1.9.1",
+    "@actions/core": "1.10.0",
     "@actions/tool-cache": "2.0.1",
-    "winston": "3.8.1"
+    "winston": "3.8.2"
   },
   "devDependencies": {
     "@vercel/ncc": "0.34.0",
     "chai": "4.3.6",
-    "eslint": "8.20.0",
+    "eslint": "8.24.0",
     "eslint-config-google": "0.14.0",
     "mocha": "10.0.0",
     "mocha-param": "2.0.1",
