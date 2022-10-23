@@ -28,4 +28,4 @@ jobs:
         with:
           version: ${{ matrix.version }}
       - name: Run script
-        run: mint init ${{ matrix.os }}-${{ matrix.version }}
+        run: mint --version

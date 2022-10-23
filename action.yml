@@ -22,7 +22,6 @@ runs:
           MINT_BINARY=mint-${{ inputs.version }}-linux
         else
           echo "::error::Windows is not supported"
-          exit 1
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
       shell: bash
