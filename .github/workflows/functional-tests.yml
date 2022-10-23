@@ -28,5 +28,5 @@ jobs:
         uses: ./
         with:
           version: ${{ matrix.version }}
-      - name: Run script
-        run: mint --version
+      - name: Print version
+        run: mint version

@@ -13,15 +13,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Fail
+      uses: actions/github-script@v6
+      if: ${{ runner.os == 'Windows' }}
+      with:
+        script: core.setFailed('Windows is not supported');
     - name: Collect info
+      if: ${{ runner.os != 'Windows' }}
       id: info
       run: |
-        if [[ "${{ runner.os }}" == "macOS" ]]; then
-          MINT_BINARY=mint-${{ inputs.version }}-osx
-        elif [[ "${{ runner.os }}" == "Linux" ]]; then
+        if [[ "${{ runner.os }}" == "Linux" ]]; then
           MINT_BINARY=mint-${{ inputs.version }}-linux
         else
-          echo "::error::Windows is not supported" && exit 1
+          MINT_BINARY=mint-${{ inputs.version }}-osx
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
       shell: bash
