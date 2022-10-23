@@ -21,14 +21,14 @@ runs:
         elif [[ "${{ runner.os }}" == "Linux" ]]; then
           MINT_BINARY=mint-${{ inputs.version }}-linux
         else
-          echo "::error::Windows is not supported"
+          echo "::error::Windows is not supported" && exit 1
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
       shell: bash
     - name: Install
       if: ${{ runner.os != 'Windows' }}
       run: |
-        curl https://github.com/mint-lang/mint/releases/download/${{ inputs.version }}/${{ steps.info.outputs.MINT_BINARY }} -o mint
+        wget https://github.com/mint-lang/mint/releases/download/${{ inputs.version }}/${{ steps.info.outputs.MINT_BINARY }} -O mint
         chmod +x mint
         echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
