@@ -14,7 +14,7 @@ A clear and concise description of what the bug is.
 #### Steps to Reproduce
 
 1. Run '...'
-1. See error
+2. See error
 
 #### Expected behavior
 
@@ -31,7 +31,7 @@ If applicable, add screenshots to help explain your problem.
 #### Technical information (please complete the following information)
 
 - OS: [e.g. Windows 10 Enterprise v.1909 (OS Build 18363.720)]
-- `setup-mint-action` version [e.g. 1.0.1]
+- `setup-mint-action` version [e.g. 1.1.0]
 
 #### Additional context
 

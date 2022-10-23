@@ -1,8 +1,4 @@
-.envrc
-.nyc_output
-.vscode/*
-!.vscode/settings.json
 .env
+.envrc
 .idea
-coverage
-node_modules
+.vscode
