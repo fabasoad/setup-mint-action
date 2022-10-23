@@ -7,9 +7,32 @@ branding:
   color: green
 inputs:
   version:
-    description: 'Mint version.'
+    description: 'Mint version'
     required: false
     default: 0.16.1
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - name: Fail
+      uses: actions/github-script@v6
+      if: ${{ runner.os == 'Windows' }}
+      with:
+        script: core.setFailed('Windows is not supported');
+    - name: Collect info
+      if: ${{ runner.os != 'Windows' }}
+      id: info
+      run: |
+        if [[ "${{ runner.os }}" == "Linux" ]]; then
+          MINT_BINARY=mint-${{ inputs.version }}-linux
+        else
+          MINT_BINARY=mint-${{ inputs.version }}-osx
+        fi
+        echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Install
+      if: ${{ runner.os != 'Windows' }}
+      run: |
+        wget https://github.com/mint-lang/mint/releases/download/${{ inputs.version }}/${{ steps.info.outputs.MINT_BINARY }} -O mint
+        chmod +x mint
+        echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash

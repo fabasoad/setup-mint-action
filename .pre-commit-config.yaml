@@ -1,47 +1,18 @@
 ---
 default_stages: ["commit"]
-exclude: ^(.gitleaks\.toml|dist/.*\.js|coverage/.*)$
+exclude: ^\.gitleaks\.toml$
 repos:
-  - repo: local
-    hooks:
-      - id: build
-        name: Build
-        entry: yarn run build
-        language: system
-        pass_filenames: false
-        verbose: true
-      - id: test
-        name: Unit tests
-        entry: yarn test
-        language: system
-        pass_filenames: false
-        verbose: true
-        stages: ["push"]
   # Security
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.3.0
+    rev: v1.4.0
     hooks:
       - id: detect-secrets
         stages: ["commit", "push"]
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.13.0
+    rev: v8.15.0
     hooks:
       - id: gitleaks
         stages: ["commit", "push"]
-  - repo: https://github.com/fabasoad/pre-commit-snyk
-    rev: v0.1.0
-    hooks:
-      - id: snyk-test
-        stages: ["push"]
-  # TypeScript
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.24.0
-    hooks:
-      - id: eslint
-        args: ['--fix']
-        files: \.[jt]sx?$
-        types: [file]
-        exclude: ^dist/.*\.js$
   # Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.32.2
@@ -68,4 +39,3 @@ repos:
       - id: trailing-whitespace
 ci:
   autofix_prs: false
-  skip: [build, eslint, test]
