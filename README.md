@@ -6,13 +6,16 @@
 
 This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
+## Prerequisites
+
+The following tools have to be installed for successful work of this GitHub action:
+[wget](https://www.gnu.org/software/wget).
+
 ## Inputs
 
-<!-- markdownlint-disable MD013 -->
 | Name    | Required | Description                                                                       | Default  | Possible values          |
 |---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
 | version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.16.1` | `0.15.1`, `0.16.0`, etc. |
-<!-- markdownlint-enable MD013 -->
 
 ## Example usage
 

@@ -5,9 +5,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'fix-*'
-      - 'feature-*'
-      - 'pre-commit-ci-update-config'
+  pull_request:
 
 jobs:
   functional_tests:
@@ -17,15 +15,14 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'macos-latest']
-        version: ['0.9.0', '0.10.0', '0.11.0', '0.12.0', '0.13.0', '0.13.1', '0.14.0', '0.15.0', '0.15.1', '0.16.0', '0.16.1']
+        version: ['0.14.0', '0.15.0', '0.15.1', '0.16.0', '0.16.1']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
       - name: Setup mint
         uses: ./
         with:
           version: ${{ matrix.version }}
       - name: Print version
         run: mint version
+        shell: sh

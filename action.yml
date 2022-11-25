@@ -17,22 +17,26 @@ runs:
       uses: actions/github-script@v6
       if: ${{ runner.os == 'Windows' }}
       with:
-        script: core.setFailed('Windows is not supported');
+        script: core.setFailed('${{ runner.os }} ${{ runner.arch }} is not supported');
     - name: Collect info
       if: ${{ runner.os != 'Windows' }}
       id: info
       run: |
-        if [[ "${{ runner.os }}" == "Linux" ]]; then
+        echo "MINT_INSTALLED=$(if command -v mint >/dev/null 2>&1; then echo true; else echo false; fi)" >> $GITHUB_OUTPUT
+        mkdir -p "$GITHUB_WORKSPACE/mint"
+        echo "MINT_PATH=$GITHUB_WORKSPACE/mint" >> $GITHUB_OUTPUT
+        if [ "${{ runner.os }}" = "Linux" ]; then
           MINT_BINARY=mint-${{ inputs.version }}-linux
         else
           MINT_BINARY=mint-${{ inputs.version }}-osx
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
-      shell: bash
+      shell: sh
     - name: Install
-      if: ${{ runner.os != 'Windows' }}
+      if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
       run: |
         wget https://github.com/mint-lang/mint/releases/download/${{ inputs.version }}/${{ steps.info.outputs.MINT_BINARY }} -O mint
         chmod +x mint
-        echo "${{ github.action_path }}" >> $GITHUB_PATH
-      shell: bash
+        echo "${{ steps.info.outputs.MINT_PATH }}" >> $GITHUB_PATH
+      shell: sh
+      working-directory: ${{ steps.info.outputs.MINT_PATH }}
