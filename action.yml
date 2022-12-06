@@ -32,10 +32,21 @@ runs:
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> $GITHUB_OUTPUT
       shell: sh
+    - name: Download
+      if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
+      uses: robinraju/release-downloader@v1.6
+      with:
+        repository: mint-lang/mint
+        latest: false
+        tag: v${{ inputs.version }}
+        fileName: ${{ steps.info.outputs.MINT_BINARY }}
+        tarBall: false
+        zipBall: false
+        out-file-path: mint
     - name: Install
       if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
       run: |
-        wget https://github.com/mint-lang/mint/releases/download/${{ inputs.version }}/${{ steps.info.outputs.MINT_BINARY }} -O mint
+        mv ${{ steps.info.outputs.MINT_BINARY }} mint
         chmod +x mint
         echo "${{ steps.info.outputs.MINT_PATH }}" >> $GITHUB_PATH
       shell: sh
