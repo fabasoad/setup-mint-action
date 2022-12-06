@@ -39,7 +39,7 @@ jobs:
 
 ### Result
 
-```bash
+```text
 Mint - Initializing a new project
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚙ Creating directory: test-project
