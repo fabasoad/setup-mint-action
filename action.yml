@@ -38,7 +38,7 @@ runs:
       with:
         repository: mint-lang/mint
         latest: false
-        tag: v${{ inputs.version }}
+        tag: ${{ inputs.version }}
         fileName: ${{ steps.info.outputs.MINT_BINARY }}
         tarBall: false
         zipBall: false
