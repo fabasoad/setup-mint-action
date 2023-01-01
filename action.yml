@@ -34,7 +34,7 @@ runs:
       shell: sh
     - name: Download
       if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
-      uses: robinraju/release-downloader@v1.6
+      uses: robinraju/release-downloader@v1.7
       with:
         repository: mint-lang/mint
         latest: false
