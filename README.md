@@ -2,8 +2,8 @@
 
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 ![GitHub release](https://img.shields.io/github/v/release/fabasoad/setup-mint-action?include_prereleases)
-![Functional Tests](https://github.com/fabasoad/setup-mint-action/workflows/Functional%20Tests/badge.svg)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/fabasoad/setup-mint-action/main.svg)](https://results.pre-commit.ci/latest/github/fabasoad/setup-mint-action/main)
+![functional-tests-remote](https://github.com/fabasoad/setup-mint-action/actions/workflows/functional-tests.yml/badge.svg)
+![pre-commit](https://github.com/fabasoad/setup-mint-action/actions/workflows/pre-commit.yml/badge.svg)
 
 This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
@@ -14,9 +14,11 @@ The following tools have to be installed for successful work of this GitHub acti
 
 ## Inputs
 
+<!-- prettier-ignore-start -->
 | Name    | Required | Description                                                                       | Default  | Possible values          |
 |---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.16.1` | `0.15.1`, `0.16.0`, etc. |
+| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.18.0` | `0.15.1`, `0.16.0`, etc. |
+<!-- prettier-ignore-end -->
 
 ## Example usage
 

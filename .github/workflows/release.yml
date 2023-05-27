@@ -1,14 +1,14 @@
 ---
-name: Create release
+name: Release
 
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
-  create_release:
-    name: Release
+  create-release:
+    name: Create release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
