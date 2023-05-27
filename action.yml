@@ -1,17 +1,17 @@
 ---
-name: 'Setup Mint'
+name: "Setup Mint"
 author: Yevhen Fabizhevskyi
-description: 'This action sets up a Mint programming language.'
+description: "This action sets up a Mint programming language."
 branding:
   icon: feather
   color: green
 inputs:
   version:
-    description: 'Mint version'
+    description: "Mint version"
     required: false
-    default: 0.16.1
+    default: "0.18.0"
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Fail
       uses: actions/github-script@v6
