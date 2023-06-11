@@ -12,7 +12,7 @@ defaults:
     shell: sh
 
 jobs:
-  functional_tests:
+  functional-tests:
     name: Run init
     timeout-minutes: 5
     strategy:
