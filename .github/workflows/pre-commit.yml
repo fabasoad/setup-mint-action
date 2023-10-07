@@ -19,15 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/fabasoad/pre-commit-container:latest
-      options: --user root
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Update git config
-        run: |
-          repo=$(echo "${{ github.repository }}" | cut -d "/" -f 2)
-          git config --global --add safe.directory "/__w/$repo/$repo"
+        run: git config --global --add safe.directory "$(pwd)"
       - name: Run pre-commit on changed files
         if: ${{ github.event_name == 'pull_request' }}
         run: |
