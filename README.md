@@ -17,7 +17,7 @@ The following tools have to be installed for successful work of this GitHub acti
 <!-- prettier-ignore-start -->
 | Name    | Required | Description                                                                       | Default  | Possible values          |
 |---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.18.0` | `0.15.1`, `0.16.0`, etc. |
+| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.19.0` | `0.18.0`, `0.17.0`, etc. |
 <!-- prettier-ignore-end -->
 
 ## Example usage
