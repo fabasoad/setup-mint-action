@@ -22,7 +22,8 @@ jobs:
         version: ["0.16.0", "0.16.1", "0.17.0", "0.18.0", "0.19.0"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
       - name: Setup mint
         uses: ./
         with:
