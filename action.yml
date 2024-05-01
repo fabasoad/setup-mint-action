@@ -37,12 +37,9 @@ runs:
     - name: Install dependencies
       if: ${{ runner.os == 'macOS' }}
       run: |
-        sw_vers -productVersion
-        which openssl
-        ls -la /opt/homebrew/Cellar/openssl@1.1
-        sudo ln -sfn /opt/homebrew/Cellar/openssl@1.1/1.0.2t/lib /usr/local/opt/openssl@1.1/lib
-        echo "LDFLAGS=\"-L/opt/homebrew/Cellar/openssl@1.1/1.0.2t/lib\"" >> "$GITHUB_ENV"
-        echo "CPPFLAGS=\"-I/opt/homebrew/Cellar/openssl@1.1/include\"" >> "$GITHUB_ENV"
+        sudo ln -sfn /opt/homebrew/Cellar/openssl@1.1/1.1.1w/lib /usr/local/opt/openssl@1.1/lib
+        echo "LDFLAGS=-L/opt/homebrew/Cellar/openssl@1.1/1.1.1w/lib" >> "$GITHUB_ENV"
+        echo "CPPFLAGS=-I/opt/homebrew/Cellar/openssl@1.1/include" >> "$GITHUB_ENV"
       shell: sh
     - name: Download
       if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
