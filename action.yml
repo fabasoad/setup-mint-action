@@ -37,11 +37,10 @@ runs:
     - name: Install dependencies
       if: ${{ runner.os == 'macOS' }}
       run: |
+        brew install rbenv/tap/openssl@1.0
+        ln -sfn /usr/local/Cellar/openssl@1.0/1.0.2t /usr/local/opt/openssl
         echo "LDFLAGS=\"-L/usr/local/opt/openssl@1.1/lib\"" >> "$GITHUB_ENV"
         echo "CPPFLAGS=\"-I/usr/local/opt/openssl@1.1/include\"" >> "$GITHUB_ENV"
-        if ! command -v openssl >/dev/null 2>&1; then
-          brew install openssl@1.1
-        fi
       shell: sh
     - name: Download
       if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
