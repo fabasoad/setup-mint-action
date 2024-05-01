@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest", "macos-13", "macos-latest"]
         version: ["0.16.0", "0.16.1", "0.17.0", "0.18.0", "0.19.0"]
     runs-on: ${{ matrix.os }}
     steps:

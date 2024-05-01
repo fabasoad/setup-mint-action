@@ -14,7 +14,7 @@ runs:
   using: "composite"
   steps:
     - name: Fail
-      if: ${{ runner.os == 'Windows' }}
+      if: ${{ runner.os == 'Windows' || runner.arch == 'ARM' || runner.arch == 'ARM64' }}
       run: |
         echo "::error title=OS is not supported::${RUNNER_OS} ${RUNNER_ARCH} is not supported"
         exit 1
@@ -33,14 +33,6 @@ runs:
           MINT_BINARY=mint-${INPUT_VERSION}-osx
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> "$GITHUB_OUTPUT"
-      shell: sh
-    - name: Install dependencies
-      if: ${{ runner.os == 'macOS' }}
-      run: |
-        sudo mkdir -p /usr/local/opt/openssl@1.1
-        sudo ln -sfn /opt/homebrew/Cellar/openssl@1.1/1.1.1w/lib /usr/local/opt/openssl@1.1/lib
-        echo "LDFLAGS=-L/opt/homebrew/Cellar/openssl@1.1/1.1.1w/lib" >> "$GITHUB_ENV"
-        echo "CPPFLAGS=-I/opt/homebrew/Cellar/openssl@1.1/include" >> "$GITHUB_ENV"
       shell: sh
     - name: Download
       if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}

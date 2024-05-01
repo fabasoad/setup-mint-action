@@ -10,8 +10,7 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
 ## Prerequisites
 
-The following tools have to be installed for successful work of this GitHub action:
-[wget](https://www.gnu.org/software/wget).
+None
 
 ## Inputs
 
