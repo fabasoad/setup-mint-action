@@ -8,10 +8,21 @@
 
 This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
+## Supported OS
+
+<!-- prettier-ignore-start -->
+| OS      | Arch   |                    |
+|---------|--------|--------------------|
+| Windows | All    | :x:                |
+| Linux   | x86_84 | :white_check_mark: |
+| Linux   | arm    | :x:                |
+| macOS   | x86_84 | :white_check_mark: |
+| macOS   | arm    | :x:                |
+<!-- prettier-ignore-end -->
+
 ## Prerequisites
 
-The following tools have to be installed for successful work of this GitHub action:
-[wget](https://www.gnu.org/software/wget).
+None
 
 ## Inputs
 

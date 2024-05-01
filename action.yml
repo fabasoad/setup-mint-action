@@ -14,11 +14,12 @@ runs:
   using: "composite"
   steps:
     - name: Fail
-      if: ${{ runner.os == 'Windows' }}
-      run: echo "::error::${RUNNER_OS} ${RUNNER_ARCH} is not supported" && exit 1
+      if: ${{ runner.os == 'Windows' || runner.arch == 'ARM' || runner.arch == 'ARM64' }}
+      run: |
+        echo "::error title=OS is not supported::${RUNNER_OS} ${RUNNER_ARCH} is not supported"
+        exit 1
       shell: sh
     - name: Collect info
-      if: ${{ runner.os != 'Windows' }}
       id: info
       env:
         INPUT_VERSION: "${{ inputs.version }}"
@@ -34,8 +35,8 @@ runs:
         echo "MINT_BINARY=$MINT_BINARY" >> "$GITHUB_OUTPUT"
       shell: sh
     - name: Download
-      if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
-      uses: robinraju/release-downloader@v1.9
+      if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
+      uses: robinraju/release-downloader@v1.10
       with:
         repository: mint-lang/mint
         latest: false
@@ -45,7 +46,7 @@ runs:
         zipBall: false
         out-file-path: mint
     - name: Install
-      if: ${{ runner.os != 'Windows' && steps.info.outputs.MINT_INSTALLED == 'false' }}
+      if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
       run: |
         mv "${{ steps.info.outputs.MINT_BINARY }}" mint
         chmod +x mint
