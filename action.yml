@@ -37,7 +37,8 @@ runs:
     - name: Install dependencies
       if: ${{ runner.os == 'macOS' }}
       run: |
-        brew install openssl@1.1
+        sw_vers -productVersion
+        brew install openssl@3
         echo "LDFLAGS=\"-L/opt/homebrew/opt/openssl@1.1/lib\"" >> "$GITHUB_ENV"
         echo "CPPFLAGS=\"-I/opt/homebrew/opt/openssl@1.1/include\"" >> "$GITHUB_ENV"
       shell: sh
