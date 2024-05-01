@@ -38,9 +38,11 @@ runs:
       if: ${{ runner.os == 'macOS' }}
       run: |
         sw_vers -productVersion
-        brew install openssl@3
-        echo "LDFLAGS=\"-L/opt/homebrew/opt/openssl@1.1/lib\"" >> "$GITHUB_ENV"
-        echo "CPPFLAGS=\"-I/opt/homebrew/opt/openssl@1.1/include\"" >> "$GITHUB_ENV"
+        which openssl
+        openssl --version
+        sudo ln -sfn /opt/homebrew/Cellar/openssl@1.1/1.0.2t/lib /usr/local/opt/openssl@1.1/lib
+        echo "LDFLAGS=\"-L/opt/homebrew/Cellar/openssl@1.1/1.0.2t/lib\"" >> "$GITHUB_ENV"
+        echo "CPPFLAGS=\"-I/opt/homebrew/Cellar/openssl@1.1/include\"" >> "$GITHUB_ENV"
       shell: sh
     - name: Download
       if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
