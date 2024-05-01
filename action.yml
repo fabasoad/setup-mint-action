@@ -34,6 +34,13 @@ runs:
         fi
         echo "MINT_BINARY=$MINT_BINARY" >> "$GITHUB_OUTPUT"
       shell: sh
+    - name: Install dependencies
+      if: ${{ runner.os == 'macOS' }}
+      run: |
+        if ! if command -v mint >/dev/null 2>&1; then
+          brew install openssl@1.1
+        fi
+      shell: sh
     - name: Download
       if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
       uses: robinraju/release-downloader@v1.10
