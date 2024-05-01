@@ -37,7 +37,7 @@ runs:
     - name: Install dependencies
       if: ${{ runner.os == 'macOS' }}
       run: |
-        if ! if command -v mint >/dev/null 2>&1; then
+        if ! command -v openssl >/dev/null 2>&1; then
           brew install openssl@1.1
         fi
       shell: sh
