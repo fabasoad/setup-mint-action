@@ -8,7 +8,7 @@ on: # yamllint disable-line rule:truthy
     paths:
       - .github/labels.yml
       - .github/workflows/sync-labels.yml
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   sync-labels:
