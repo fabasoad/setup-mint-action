@@ -11,13 +11,13 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 ## Supported OS
 
 <!-- prettier-ignore-start -->
-| OS      | Arch   |                    |
-|---------|--------|--------------------|
-| Windows | All    | :x:                |
-| Linux   | x86_84 | :white_check_mark: |
-| Linux   | arm    | :x:                |
-| macOS   | x86_84 | :white_check_mark: |
-| macOS   | arm    | :x:                |
+| OS      | Arch   |                                 |
+|---------|--------|---------------------------------|
+| Windows | All    | :x:                             |
+| Linux   | x86_84 | :white_check_mark:              |
+| Linux   | arm    | :x:                             |
+| macOS   | x86_84 | :white_check_mark:              |
+| macOS   | arm    | :white_check_mark: `(> 0.19.x)` |
 <!-- prettier-ignore-end -->
 
 ## Prerequisites
@@ -46,8 +46,8 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - uses: fabasoad/setup-mint-action@main
+      - uses: actions/checkout@v4
+      - uses: fabasoad/setup-mint-action@v1
       - name: Run script
         run: mint init test-project
 ```
