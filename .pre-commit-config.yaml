@@ -1,7 +1,6 @@
 ---
 default_install_hook_types: ["pre-commit", "pre-push"]
 default_stages: ["commit", "push"]
-exclude: ^\.gitleaks\.toml$
 minimum_pre_commit_version: 2.18.0
 repos:
   # Security
@@ -10,12 +9,20 @@ repos:
     hooks:
       - id: detect-secrets
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.18.2
+    rev: v8.18.4
     hooks:
       - id: gitleaks
+  - repo: https://github.com/fabasoad/pre-commit-grype
+    rev: v0.3.1
+    hooks:
+      - id: grype-dir
+        stages: ["push"]
+        args:
+          - --grype-args=--by-cve --fail-on=low
+          - --hook-args=--log-level debug
   # Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.40.0
+    rev: v0.41.0
     hooks:
       - id: markdownlint-fix
         stages: ["commit"]
@@ -27,11 +34,11 @@ repos:
         stages: ["push"]
   # GitHub Actions
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.0
+    rev: v1.7.1
     hooks:
       - id: actionlint
         args: ["-pyflakes="]
-        stages: ["push"]
+        stages: ["commit"]
   # Other
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
