@@ -9,7 +9,7 @@ inputs:
   version:
     description: "Mint version"
     required: false
-    default: "0.20.0-alpha.1"
+    default: "0.20.0-alpha.3"
 runs:
   using: "composite"
   steps:
