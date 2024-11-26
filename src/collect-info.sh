@@ -21,7 +21,7 @@ main() {
   mkdir -p "${GITHUB_WORKSPACE}/mint"
   echo "mint-path=${GITHUB_WORKSPACE}/mint" >> "$GITHUB_OUTPUT"
   if [ "${RUNNER_OS}" = "Linux" ]; then
-    mint_binary="mint-${input_version}-linux"
+    mint_binary="mint-${input_version}-linux-x86_64"
   else
     if [ "${RUNNER_ARCH#ARM}" != "$RUNNER_ARCH" ]; then
       if [ "$(_if_old_version "${input_version}")" = "true" ]; then
@@ -34,9 +34,9 @@ main() {
       fi
     else
       if [ "$(_if_old_version "${input_version}")" = "true" ]; then
-        MINT_BINARY="mint-${input_version}-osx"
+        mint_binary="mint-${input_version}-osx"
       else
-        MINT_BINARY="mint-${input_version}-osx-x86_64"
+        mint_binary="mint-${input_version}-osx-x86_64"
       fi
     fi
   fi
