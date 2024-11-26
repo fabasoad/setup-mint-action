@@ -9,14 +9,13 @@ inputs:
   version:
     description: "Mint version"
     required: false
-    default: "0.20.0-alpha.3"
+    default: "0.20.1"
 runs:
   using: "composite"
   steps:
     - name: Fail
       if: (runner.os == 'Windows'
-        || (runner.os == 'Linux' && runner.arch == 'ARM')
-        || (runner.os == 'Linux' && runner.arch == 'ARM64'))
+        || (runner.os == 'Linux' && startsWith(runner.arch, 'ARM')))
       run: |
         echo "::error title=OS is not supported::${RUNNER_OS} ${RUNNER_ARCH} is not supported"
         exit 1
@@ -25,25 +24,25 @@ runs:
       id: info
       env:
         INPUT_VERSION: "${{ inputs.version }}"
-      run: ./collect-info.sh
+      run: ./collect-info.sh "${INPUT_VERSION}"
       shell: sh
       working-directory: "${{ github.action_path }}/src"
     - name: Download
-      if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
+      if: ${{ steps.info.outputs.mint-installed == 'false' }}
       uses: robinraju/release-downloader@v1.11
       with:
         repository: mint-lang/mint
         latest: false
         tag: ${{ inputs.version }}
-        fileName: ${{ steps.info.outputs.MINT_BINARY }}
+        fileName: ${{ steps.info.outputs.mint-binary }}
         tarBall: false
         zipBall: false
         out-file-path: mint
     - name: Install
-      if: ${{ steps.info.outputs.MINT_INSTALLED == 'false' }}
+      if: ${{ steps.info.outputs.mint-installed == 'false' }}
       run: |
-        mv "${{ steps.info.outputs.MINT_BINARY }}" mint
+        mv "${{ steps.info.outputs.mint-binary }}" mint
         chmod +x mint
-        echo "${{ steps.info.outputs.MINT_PATH }}" >> "$GITHUB_PATH"
+        echo "${{ steps.info.outputs.mint-path }}" >> "$GITHUB_PATH"
       shell: sh
-      working-directory: ${{ steps.info.outputs.MINT_PATH }}
+      working-directory: ${{ steps.info.outputs.mint-path }}

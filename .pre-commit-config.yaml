@@ -21,7 +21,7 @@ repos:
     hooks:
       - id: detect-secrets
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.21.1
+    rev: v8.21.2
     hooks:
       - id: gitleaks
   - repo: https://github.com/fabasoad/pre-commit-grype
@@ -29,12 +29,12 @@ repos:
     hooks:
       - id: grype-dir
         args:
-          - --grype-args=--by-cve --fail-on=low --exclude=**/node_modules
+          - --grype-args=--by-cve --fail-on=low
           - --hook-args=--log-level debug
         stages: ["pre-push"]
   # Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.42.0
+    rev: v0.43.0
     hooks:
       - id: markdownlint-fix
         stages: ["pre-commit"]
@@ -46,7 +46,7 @@ repos:
         stages: ["pre-push"]
   # GitHub Actions
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.3
+    rev: v1.7.4
     hooks:
       - id: actionlint
         args: ["-pyflakes="]

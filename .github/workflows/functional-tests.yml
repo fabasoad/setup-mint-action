@@ -19,16 +19,18 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-13", "macos-latest"]
-        version: ["0.16.1", "0.17.0", "0.18.0", "0.19.0", "0.20.0-alpha.3"]
+        version: ["0.17.0", "0.18.0", "0.19.0", "0.20.0", "0.20.1"]
         exclude:
-          - os: "macos-latest"
-            version: "0.16.1"
           - os: "macos-latest"
             version: "0.17.0"
           - os: "macos-latest"
             version: "0.18.0"
           - os: "macos-latest"
             version: "0.19.0"
+          - os: "macos-13"
+            version: "0.20.0"
+          - os: "macos-13"
+            version: "0.20.1"
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout ${{ github.repository }}
