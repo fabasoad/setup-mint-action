@@ -14,9 +14,9 @@ if_old_version() {
 }
 
 main() {
-  echo "MINT_INSTALLED=$(if command -v mint >/dev/null 2>&1; then echo true; else echo false; fi)" >> "$GITHUB_OUTPUT"
-  mkdir -p "$GITHUB_WORKSPACE/mint"
-  echo "MINT_PATH=$GITHUB_WORKSPACE/mint" >> "$GITHUB_OUTPUT"
+  echo "mint-installed=$(if command -v mint >/dev/null 2>&1; then echo true; else echo false; fi)" >> "$GITHUB_OUTPUT"
+  mkdir -p "${GITHUB_WORKSPACE}/mint"
+  echo "mint-path=${GITHUB_WORKSPACE}/mint" >> "$GITHUB_OUTPUT"
   if [ "${RUNNER_OS}" = "Linux" ]; then
     MINT_BINARY=mint-${INPUT_VERSION}-linux
   else
@@ -37,7 +37,7 @@ main() {
       fi
     fi
   fi
-  echo "MINT_BINARY=$MINT_BINARY" >> "$GITHUB_OUTPUT"
+  echo "mint-binary=$MINT_BINARY" >> "$GITHUB_OUTPUT"
 }
 
 main "$@"

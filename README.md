@@ -27,9 +27,9 @@ None
 ## Inputs
 
 <!-- prettier-ignore-start -->
-| Name    | Required | Description                                                                       | Default          | Possible values          |
-|---------|----------|-----------------------------------------------------------------------------------|------------------|--------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.20.0-alpha.3` | `0.19.0`, `0.18.0`, etc. |
+| Name    | Required | Description                                                                       | Default  | Possible values          |
+|---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
+| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.20.1` | `0.19.0`, `0.18.0`, etc. |
 <!-- prettier-ignore-end -->
 
 ## Example usage
