@@ -24,7 +24,7 @@ runs:
       id: info
       env:
         INPUT_VERSION: "${{ inputs.version }}"
-      run: ./collect-info.sh
+      run: ./collect-info.sh "${INPUT_VERSION}"
       shell: sh
       working-directory: "${{ github.action_path }}/src"
     - name: Download
