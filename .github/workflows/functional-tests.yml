@@ -12,31 +12,15 @@ defaults:
     shell: sh
 
 jobs:
-  get-versions:
-    name: Get 5 latest versions
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    outputs:
-      versions: ${{ steps.prepare-list.outputs.versions }}
-    steps:
-      - name: Prepare list
-        id: prepare-list
-        run: |
-          url="https://api.github.com/repos/mint-lang/mint/releases"
-          versions=$(curl -s "${url}" | jq -c '[.[0:5][].tag_name] | map(sub("^v"; ""))')
-          echo "versions=${versions}" >> "$GITHUB_OUTPUT"
   functional-tests:
     name: Run init
-    needs: [get-versions]
     timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-13", "macos-latest"]
-        version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
+        version: ["0.21.0", "0.20.1", "0.20.0", "0.19.0", "0.18.0"]
         exclude:
-          - os: "macos-latest"
-            version: "0.17.0"
           - os: "macos-latest"
             version: "0.18.0"
           - os: "macos-latest"
@@ -45,6 +29,8 @@ jobs:
             version: "0.20.0"
           - os: "macos-13"
             version: "0.20.1"
+          - os: "macos-13"
+            version: "0.21.0"
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout ${{ github.repository }}
