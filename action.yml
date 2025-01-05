@@ -69,5 +69,5 @@ runs:
       working-directory: ${{ steps.info.outputs.bin-path }}
 
     - name: Print version
-      run: mint --version
+      run: mint version
       shell: sh

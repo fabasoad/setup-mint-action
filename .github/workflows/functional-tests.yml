@@ -52,19 +52,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
-        #        os: ["ubuntu-latest", "macos-13", "macos-latest"]
         version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
-    #        exclude:
-    #          - os: "macos-latest"
-    #            version: "0.18.0"
-    #          - os: "macos-latest"
-    #            version: "0.19.0"
-    #          - os: "macos-13"
-    #            version: "0.20.0"
-    #          - os: "macos-13"
-    #            version: "0.20.1"
-    #          - os: "macos-13"
-    #            version: "0.21.0"
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
@@ -74,3 +62,36 @@ jobs:
           version: ${{ matrix.version }}
       - name: Print version
         run: mint version
+  test-force:
+    name: Test force
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        force: ["true", "false"]
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+      - name: Setup Mint 1
+        id: setup-mint-1
+        uses: ./
+      - name: Setup Mint 2
+        id: setup-mint-2
+        uses: ./
+        with:
+          force: ${{ matrix.force }}
+      - name: Test action completion
+        run: |
+          test_equal() {
+            if [ "${2}" != "${3}" ]; then
+              echo "::error title=${1}::Expected: ${3}. Actual: ${2}."
+              exit 1
+            fi
+          }
+          test_equal "Wrong \"installed\" output from setup-mint-1" \
+            "${{ steps.setup-mint-1.outputs.installed }}" \
+            "true"
+          test_equal "Wrong \"installed\" output from setup-mint-2" \
+            "${{ steps.setup-mint-2.outputs.installed }}" \
+            "${{ matrix.force }}"
