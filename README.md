@@ -22,14 +22,30 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 
 ## Prerequisites
 
-None
+None.
 
 ## Inputs
 
+```yaml
+- uses: fabasoad/setup-mint-action@v1
+  with:
+    # (Optional) Mint version. Defaults to the latest version.
+    version: "0.21.0"
+    # (Optional) If "false" skips installation if mint is already installed. If
+    # "true" installs mint in any case. Defaults to "false".
+    force: "false"
+    # (Optional) GitHub token that is used to send requests to GitHub API such
+    # as downloading asset. Defaults to the token provided by GitHub Actions
+    # environment.
+    github-token: "${{ github.token }}"
+```
+
+## Outputs
+
 <!-- prettier-ignore-start -->
-| Name    | Required | Description                                                                       | Default  | Possible values          |
-|---------|----------|-----------------------------------------------------------------------------------|----------|--------------------------|
-| version | No       | Mint version that can be found [here](https://github.com/mint-lang/mint/releases) | `0.21.0` | `0.19.0`, `0.20.1`, etc. |
+| Name      | Description                       | Example |
+|-----------|-----------------------------------|---------|
+| installed | Whether mint was installed or not | `true`  |
 <!-- prettier-ignore-end -->
 
 ## Example usage
@@ -46,7 +62,6 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: fabasoad/setup-mint-action@v1
       - name: Run script
         run: mint init test-project

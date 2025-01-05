@@ -7,9 +7,25 @@ branding:
   color: green
 inputs:
   version:
-    description: "Mint version"
+    description: Mint version. Defaults to the latest version.
     required: false
-    default: "0.21.0"
+    default: "latest"
+  force:
+    description: |
+      If "false" skips installation if mint is already installed. If "true"
+      installs mint in any case. Defaults to "false".
+    required: false
+    default: "false"
+  github-token:
+    description: |
+      GitHub token that is used to send requests to GitHub API such as getting
+      latest release. Defaults to the token provided by GitHub Actions environment.
+    required: false
+    default: ${{ github.token }}
+outputs:
+  installed:
+    description: Whether mint was installed or not.
+    value: "${{ steps.install-mint.outcome == 'success' }}"
 runs:
   using: "composite"
   steps:
@@ -20,29 +36,38 @@ runs:
         echo "::error title=OS is not supported::${RUNNER_OS} ${RUNNER_ARCH} is not supported"
         exit 1
       shell: sh
+
     - name: Collect info
       id: info
       env:
-        INPUT_VERSION: "${{ inputs.version }}"
-      run: ./collect-info.sh "${INPUT_VERSION}"
+        INPUT_FORCE: "${{ inputs.force }}"
+      run: ./collect-info.sh "${INPUT_FORCE}"
       shell: sh
       working-directory: "${{ github.action_path }}/src"
-    - name: Download
-      if: ${{ steps.info.outputs.mint-installed == 'false' }}
+
+    - name: Download binary
+      if: ${{ steps.info.outputs.bin-installed == 'false' }}
+      id: download-binary
       uses: robinraju/release-downloader@v1
       with:
-        repository: mint-lang/mint
-        latest: false
-        tag: ${{ inputs.version }}
-        fileName: ${{ steps.info.outputs.mint-binary }}
-        tarBall: false
-        zipBall: false
-        out-file-path: mint
-    - name: Install
-      if: ${{ steps.info.outputs.mint-installed == 'false' }}
+        repository: "mint-lang/mint"
+        latest: "${{ inputs.version == 'latest' }}"
+        tag: "${{ inputs.version == 'latest' && '' || inputs.version }}"
+        fileName: "mint-*-${{ runner.os == 'Linux' && 'linux' || 'osx' }}-${{ startsWith(runner.arch, 'ARM') && 'arm64' || 'x86_64' }}"
+        out-file-path: "${{ steps.info.outputs.bin-dir }}"
+        token: "${{ inputs.github-token }}"
+
+    - name: Install mint
+      if: ${{ steps.info.outputs.bin-installed == 'false' }}
+      id: install-mint
       run: |
-        mv "${{ steps.info.outputs.mint-binary }}" mint
+        tag_name="${{ steps.download-binary.outputs.tag_name }}"
+        mv "mint-${tag_name}-${{ runner.os == 'Linux' && 'linux' || 'osx' }}-${{ startsWith(runner.arch, 'ARM') && 'arm64' || 'x86_64' }}" mint
         chmod +x mint
-        echo "${{ steps.info.outputs.mint-path }}" >> "$GITHUB_PATH"
+        echo "$(pwd)" >> "$GITHUB_PATH"
       shell: sh
-      working-directory: ${{ steps.info.outputs.mint-path }}
+      working-directory: ${{ steps.info.outputs.bin-path }}
+
+    - name: Print version
+      run: mint --version
+      shell: sh

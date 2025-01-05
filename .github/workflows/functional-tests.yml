@@ -1,37 +1,70 @@
 ---
 name: Functional Tests
 
-on:
-  pull_request: {}
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+  pull_request:
+    paths:
+      - .github/workflows/functional-tests.yml
+      - src/**
+      - action.yml
+  schedule:
+    # Every Friday at 09:00 JST
+    - cron: "0 0 * * 5"
+  workflow_dispatch: {}
 
 defaults:
   run:
     shell: sh
 
 jobs:
-  functional-tests:
-    name: Run init
+  get-versions:
+    name: Get 3 latest versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      versions: ${{ steps.prepare-list.outputs.versions }}
+    steps:
+      - name: Get releases
+        id: github-releases
+        uses: yakubique/github-releases@v1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repository: "mint-lang/mint"
+          sort: "desc"
+      - name: Prepare list
+        id: prepare-list
+        env:
+          RELEASES_AMOUNT: "3"
+        run: |
+          versions=$(echo '${{ steps.github-releases.outputs.releases }}' \
+            | jq -c -r --arg n "${RELEASES_AMOUNT}" '.[0:($n | tonumber)] | . += ["latest"]')
+          echo "versions=${versions}" >> "$GITHUB_OUTPUT"
+  setup-mint:
+    name: Setup mint
+    needs: [get-versions]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-13", "macos-latest"]
-        version: ["0.21.0", "0.20.1", "0.20.0", "0.19.0", "0.18.0"]
-        exclude:
-          - os: "macos-latest"
-            version: "0.18.0"
-          - os: "macos-latest"
-            version: "0.19.0"
-          - os: "macos-13"
-            version: "0.20.0"
-          - os: "macos-13"
-            version: "0.20.1"
-          - os: "macos-13"
-            version: "0.21.0"
-    runs-on: ${{ matrix.os }}
+        os: ["ubuntu-latest", "macos-latest"]
+        #        os: ["ubuntu-latest", "macos-13", "macos-latest"]
+        version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
+    #        exclude:
+    #          - os: "macos-latest"
+    #            version: "0.18.0"
+    #          - os: "macos-latest"
+    #            version: "0.19.0"
+    #          - os: "macos-13"
+    #            version: "0.20.0"
+    #          - os: "macos-13"
+    #            version: "0.20.1"
+    #          - os: "macos-13"
+    #            version: "0.21.0"
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
