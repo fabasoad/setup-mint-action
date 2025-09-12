@@ -82,3 +82,7 @@ Mint - Initializing a new project
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 All done in 292μs!
 ```
+
+## Contributions
+
+![Alt](https://repobeats.axiom.co/api/embed/2fd14dca25bd7e385ad97b48484ed139295deda9.svg "Repobeats analytics image")
