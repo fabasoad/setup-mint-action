@@ -57,6 +57,15 @@ runs:
         out-file-path: "${{ steps.info.outputs.bin-dir }}"
         token: "${{ inputs.github-token }}"
 
+    - name: Ensure OpenSSL 1.1 (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        # If library is missing, install openssl@1.1 via Homebrew
+        if [ ! -f /opt/homebrew/opt/openssl@1.1/lib/libssl.1.1.dylib ]; then
+          brew install openssl@1.1
+        fi
+      shell: sh
+
     - name: Install mint
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       id: install-mint
