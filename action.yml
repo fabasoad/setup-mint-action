@@ -59,17 +59,21 @@ runs:
 
     - name: Ensure OpenSSL 1.1 (macOS)
       if: runner.os == 'macOS'
-      env:
-        GH_TOKEN: "${{ inputs.github-token }}"
       run: |
         if [ ! -f /opt/homebrew/opt/openssl@1.1/lib/libssl.1.1.dylib ]; then
-          brew install openssl@1.1 2>/dev/null || {
-            mkdir -p /opt/homebrew/Library/Taps/shivammathur
-            git clone \
-              "https://x-access-token:${GH_TOKEN}@github.com/shivammathur/homebrew-openssl-deprecated" \
-              /opt/homebrew/Library/Taps/shivammathur/homebrew-openssl
-            brew install shivammathur/openssl/openssl@1.1
-          }
+          OPENSSL3_LIB=/opt/homebrew/opt/openssl@3/lib
+          OPENSSL1_LIB=/opt/homebrew/opt/openssl@1.1/lib
+          mkdir -p "$OPENSSL1_LIB"
+          cp "$OPENSSL3_LIB/libcrypto.3.dylib" "$OPENSSL1_LIB/libcrypto.1.1.dylib"
+          install_name_tool -id "$OPENSSL1_LIB/libcrypto.1.1.dylib" \
+            "$OPENSSL1_LIB/libcrypto.1.1.dylib"
+          cp "$OPENSSL3_LIB/libssl.3.dylib" "$OPENSSL1_LIB/libssl.1.1.dylib"
+          install_name_tool -id "$OPENSSL1_LIB/libssl.1.1.dylib" \
+            "$OPENSSL1_LIB/libssl.1.1.dylib"
+          install_name_tool \
+            -change "$OPENSSL3_LIB/libcrypto.3.dylib" \
+            "$OPENSSL1_LIB/libcrypto.1.1.dylib" \
+            "$OPENSSL1_LIB/libssl.1.1.dylib"
         fi
       shell: sh
 
