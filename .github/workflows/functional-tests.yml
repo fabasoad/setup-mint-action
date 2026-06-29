@@ -48,14 +48,14 @@ jobs:
   setup-mint:
     name: Setup mint
     needs: [get-versions]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-${{ case(matrix.os == 'ubuntu', 'latest', '26') }}
     timeout-minutes: 5
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-26"]
+        os: ["ubuntu", "macos"]
         version: ${{ fromJSON(needs.get-versions.outputs.versions) }}
     steps:
       - name: Checkout ${{ github.repository }}
