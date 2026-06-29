@@ -60,11 +60,16 @@ runs:
     - name: Ensure OpenSSL 1.1 (macOS)
       if: runner.os == 'macOS'
       env:
-        HOMEBREW_GITHUB_API_TOKEN: "${{ inputs.github-token }}"
+        GH_TOKEN: "${{ inputs.github-token }}"
       run: |
         if [ ! -f /opt/homebrew/opt/openssl@1.1/lib/libssl.1.1.dylib ]; then
-          brew install openssl@1.1 2>/dev/null \
-            || brew install shivammathur/openssl/openssl@1.1
+          brew install openssl@1.1 2>/dev/null || {
+            mkdir -p /opt/homebrew/Library/Taps/shivammathur
+            git clone \
+              "https://x-access-token:${GH_TOKEN}@github.com/shivammathur/homebrew-openssl" \
+              /opt/homebrew/Library/Taps/shivammathur/homebrew-openssl
+            brew install shivammathur/openssl/openssl@1.1
+          }
         fi
       shell: sh
 
@@ -73,7 +78,7 @@ runs:
       id: install-mint
       run: |
         tag_name="${{ steps.download-binary.outputs.tag_name }}"
-        mv "mint-${tag_name}-${{ case(runner.os == 'Linux', 'linux', 'osx') }}-${{ startsWith(runner.arch, 'ARM') && 'arm64' || 'x86_64' }}" mint
+        mv "mint-${tag_name}-${{ case(runner.os == 'Linux', 'linux', 'osx') }}-${{ case(startsWith(runner.arch, 'ARM'), 'arm64', 'x86_64') }}" mint
         chmod +x mint
         echo "$(pwd)" >> "$GITHUB_PATH"
       shell: sh
