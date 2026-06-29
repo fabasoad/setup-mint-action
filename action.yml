@@ -57,12 +57,11 @@ runs:
         out-file-path: "${{ steps.info.outputs.bin-dir }}"
         token: "${{ inputs.github-token }}"
 
-    - name: Ensure OpenSSL 1.1 (macOS)
+    - name: Ensure OpenSSL (macOS)
       if: runner.os == 'macOS'
       run: |
-        # If library is missing, install openssl@1.1 via Homebrew
         if [ ! -f /opt/homebrew/opt/openssl@1.1/lib/libssl.1.1.dylib ]; then
-          brew install openssl@1.1
+          brew install openssl@1.1 2>/dev/null || brew install openssl@3
         fi
       shell: sh
 
