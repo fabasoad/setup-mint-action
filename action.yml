@@ -60,20 +60,32 @@ runs:
     - name: Ensure OpenSSL 1.1 (macOS)
       if: runner.os == 'macOS'
       run: |
-        if [ ! -f /opt/homebrew/opt/openssl@1.1/lib/libssl.1.1.dylib ]; then
-          OPENSSL3_LIB=/opt/homebrew/opt/openssl@3/lib
-          OPENSSL1_LIB=/opt/homebrew/opt/openssl@1.1/lib
+        OPENSSL3=/opt/homebrew/opt/openssl@3
+        OPENSSL1_LIB=/opt/homebrew/opt/openssl@1.1/lib
+        if [ ! -f "$OPENSSL1_LIB/libssl.1.1.dylib" ]; then
           mkdir -p "$OPENSSL1_LIB"
-          cp "$OPENSSL3_LIB/libcrypto.3.dylib" "$OPENSSL1_LIB/libcrypto.1.1.dylib"
-          install_name_tool -id "$OPENSSL1_LIB/libcrypto.1.1.dylib" \
-            "$OPENSSL1_LIB/libcrypto.1.1.dylib"
-          cp "$OPENSSL3_LIB/libssl.3.dylib" "$OPENSSL1_LIB/libssl.1.1.dylib"
-          install_name_tool -id "$OPENSSL1_LIB/libssl.1.1.dylib" \
-            "$OPENSSL1_LIB/libssl.1.1.dylib"
-          install_name_tool \
-            -change "$OPENSSL3_LIB/libcrypto.3.dylib" \
-            "$OPENSSL1_LIB/libcrypto.1.1.dylib" \
-            "$OPENSSL1_LIB/libssl.1.1.dylib"
+          printf '%s\n' \
+            '#include <openssl/evp.h>' \
+            'int EVP_MD_size(const EVP_MD *md) { return EVP_MD_get_size(md); }' \
+            'int EVP_MD_block_size(const EVP_MD *md) { return EVP_MD_get_block_size(md); }' \
+            'int EVP_CIPHER_key_length(const EVP_CIPHER *c) { return EVP_CIPHER_get_key_length(c); }' \
+            'int EVP_CIPHER_iv_length(const EVP_CIPHER *c) { return EVP_CIPHER_get_iv_length(c); }' \
+            'int EVP_CIPHER_block_size(const EVP_CIPHER *c) { return EVP_CIPHER_get_block_size(c); }' \
+            'int EVP_CIPHER_CTX_key_length(const EVP_CIPHER_CTX *c) { return EVP_CIPHER_CTX_get_key_length(c); }' \
+            'int EVP_CIPHER_CTX_iv_length(const EVP_CIPHER_CTX *c) { return EVP_CIPHER_CTX_get_iv_length(c); }' \
+            'int EVP_CIPHER_CTX_block_size(const EVP_CIPHER_CTX *c) { return EVP_CIPHER_CTX_get_block_size(c); }' \
+            > /tmp/openssl_shim.c
+          cc -dynamiclib \
+            -install_name "$OPENSSL1_LIB/libcrypto.1.1.dylib" \
+            -I "$OPENSSL3/include" -L "$OPENSSL3/lib" \
+            -Wl,-reexport_library,"$OPENSSL3/lib/libcrypto.3.dylib" \
+            /tmp/openssl_shim.c \
+            -o "$OPENSSL1_LIB/libcrypto.1.1.dylib"
+          cc -dynamiclib \
+            -install_name "$OPENSSL1_LIB/libssl.1.1.dylib" \
+            -L "$OPENSSL3/lib" \
+            -Wl,-reexport_library,"$OPENSSL3/lib/libssl.3.dylib" \
+            -o "$OPENSSL1_LIB/libssl.1.1.dylib"
         fi
       shell: sh
 
