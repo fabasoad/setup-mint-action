@@ -62,7 +62,7 @@ runs:
       id: install-mint
       run: |
         tag_name="${{ steps.download-binary.outputs.tag_name }}"
-        mv "mint-${tag_name}-${{ runner.os == 'Linux' && 'linux' || 'osx' }}-${{ startsWith(runner.arch, 'ARM') && 'arm64' || 'x86_64' }}" mint
+        mv "mint-${tag_name}-${{ case(runner.os == 'Linux', 'linux', 'osx') }}-${{ case(startsWith(runner.arch, 'ARM'), 'arm64', 'x86_64') }}" mint
         chmod +x mint
         echo "$(pwd)" >> "$GITHUB_PATH"
       shell: sh
