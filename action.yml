@@ -45,6 +45,16 @@ runs:
       shell: sh
       working-directory: "${{ github.action_path }}/src"
 
+    - name: Prepare binary name template
+      id: binary-name
+      run: |
+        template="mint-{0}-${{ format('{0}-{1}', case(runner.os == 'macOS', 'osx', 'linux'), case(startsWith(runner.arch, 'ARM'), 'arm64', 'x86_64')) }}"
+        if [ "${RUNNER_OS}" = "macOS" ] && [ "$(sw_vers -productVersion | cut -d '.' -f 1)" -ge 26 ]; then
+          template="${template}-openssl3"
+        fi
+        echo "template=${template}" >> "$GITHUB_OUTPUT"
+      shell: sh
+
     - name: Download binary
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       id: download-binary
@@ -53,7 +63,7 @@ runs:
         repository: "mint-lang/mint"
         latest: "${{ inputs.version == 'latest' }}"
         tag: "${{ inputs.version == 'latest' && '' || inputs.version }}"
-        fileName: "mint-*-${{ runner.os == 'Linux' && 'linux' || 'osx' }}-${{ startsWith(runner.arch, 'ARM') && 'arm64' || 'x86_64' }}"
+        fileName: "${{ format(steps.binary-name.outputs.template, '*') }}"
         out-file-path: "${{ steps.info.outputs.bin-dir }}"
         token: "${{ inputs.github-token }}"
 
@@ -61,8 +71,7 @@ runs:
       if: ${{ steps.info.outputs.bin-installed == 'false' }}
       id: install-mint
       run: |
-        tag_name="${{ steps.download-binary.outputs.tag_name }}"
-        mv "mint-${tag_name}-${{ case(runner.os == 'Linux', 'linux', 'osx') }}-${{ case(startsWith(runner.arch, 'ARM'), 'arm64', 'x86_64') }}" mint
+        mv "${{ format(steps.binary-name.outputs.template, steps.download-binary.outputs.tag_name) }}" mint
         chmod +x mint
         echo "$(pwd)" >> "$GITHUB_PATH"
       shell: sh
