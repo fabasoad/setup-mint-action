@@ -50,7 +50,7 @@ runs:
       run: |
         template="mint-{0}-${{ format('{0}-{1}', case(runner.os == 'macOS', 'osx', 'linux'), case(startsWith(runner.arch, 'ARM'), 'arm64', 'x86_64')) }}"
         if [ "${RUNNER_OS}" = "macOS" ] && [ "$(sw_vers -productVersion | cut -d '.' -f 1)" -ge 26 ]; then
-          template="${binary_suffix}-openssl3"
+          template="${template}-openssl3"
         fi
         echo "template=${template}" >> "$GITHUB_OUTPUT"
       shell: sh
