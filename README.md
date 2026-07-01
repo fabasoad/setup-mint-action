@@ -11,14 +11,13 @@ This action sets up a [Mint](https://www.mint-lang.com/) programming language.
 ## Supported OS
 
 <!-- prettier-ignore-start -->
-| OS            | Arch   |                                                                              |
-|---------------|--------|------------------------------------------------------------------------------|
-| Windows       | All    | :x:                                                                          |
-| Linux         | x86_84 | :white_check_mark:                                                           |
-| Linux         | arm    | :x:                                                                          |
-| macOS (<= 15) | x86_84 | :white_check_mark:                                                           |
-| macOS (<= 15) | arm    | :white_check_mark: `(>= 0.20.0)`                                             |
-| macOS (> 15)  | All    | :x: (See [mint-lang/mint#828](https://github.com/mint-lang/mint/issues/828)) |
+| OS      | Arch   |                                  |
+|---------|--------|----------------------------------|
+| Windows | All    | :x:                              |
+| Linux   | x86_84 | :white_check_mark:               |
+| Linux   | arm    | :x:                              |
+| macOS   | x86_84 | :white_check_mark:               |
+| macOS   | arm    | :white_check_mark: `(>= 0.20.0)` |
 <!-- prettier-ignore-end -->
 
 ## Prerequisites
